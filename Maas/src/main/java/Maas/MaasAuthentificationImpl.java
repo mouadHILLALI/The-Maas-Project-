@@ -15,9 +15,8 @@ public class MaasAuthetificationImpl implements MaasAuthentification {
             String email = (String) getEmailMethod.invoke(t);
             String password = (String) getPasswordMethod.invoke(t);
             String hashedPassword = DigestUtils.md5Hex(password);
-            String className = clazz.getSimpleName().toLowerCase() + "s";
             em.getTransaction().begin();
-            String query = "SELECT e FROM " + className + " e WHERE e.email = :email";
+            String query = "SELECT e FROM " + clazz.getSimpleName() + " e WHERE e.email = :email";
             T entity = em.createQuery(query, (Class<T>) clazz)
                     .setParameter("email", email)
                     .getSingleResult();
